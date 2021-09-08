@@ -1,27 +1,22 @@
-#!/usr/bin/env python
-# coding: utf-8
 
-# In[1]:
-
-
-# Step 1 - Load Data
+#Load Data
 import pandas as pd
 dataset = pd.read_csv("Documents\iphone_sales_data.csv")
 X = dataset.iloc[:,:-1].values
 y = dataset.iloc[:, 3].values
 
-# Step 2 - Convert Gender to number
+#Convert Gender to number
 from sklearn.preprocessing import LabelEncoder
 labelEncoder_gender =  LabelEncoder()
 X[:,0] = labelEncoder_gender.fit_transform(X[:,0])
 
 
-# Step 3 - Feature Scaling
+#Feature Scaling
 from sklearn.preprocessing import StandardScaler
 sc = StandardScaler()
 X = sc.fit_transform(X)
 
-# Step 4 - Compare Classification Algorithms
+#Compare Classification Algorithms
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import LogisticRegression
@@ -44,8 +39,6 @@ for name, model in classification_models:
   result = cross_val_score(model, X, y, cv=kfold, scoring='accuracy')
   print("%s: Mean Accuracy = %.2f%% - SD Accuracy = %.2f%%" % (name, result.mean()*100, result.std()*100))
 
-
-# In[ ]:
 
 
 
